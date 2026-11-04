@@ -61,7 +61,7 @@ def get_year(year: int) -> pd.DataFrame:
 
     tables =[]
     for place, entry in zip(PLACES, answer):
-        table = pd.DataFrame(entry["hour"])
+        table = pd.DataFrame(entry["hourly"])
         table["place"] = place
         tables.append(table)
     return pd.concat(tables, ignore_index=True)
@@ -74,7 +74,7 @@ def main() -> None:
         tables.append(get_year(year))
         time.sleep(1) 
 
-    df - pd.concat(tables, ignore_index=True)
+    df = pd.concat(tables, ignore_index=True)
     df["ts_utc"] = pd.to_datetime(df["time"], utc=True)
     df = df[["ts_utc", "place", *VARIABLES]]
 
