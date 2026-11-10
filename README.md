@@ -20,6 +20,17 @@ we predict cheap hours before the price auction closes?
   26.0 €/MWh average error). Warning when the forecast is below 20 €/MWh,
   it catches 63% of negative-price hours (vs 54%) with fewer false alarms
   (29% vs 46%).
+  - The pattern is getting extreme: in June 2025, about 3 in 4 hours between
+  13:00 and 15:00 had negative prices. In winter, cheap hours move to the
+  night (wind, low demand).
+
+## Dashboard
+Two-page Power BI dashboard: when negative prices happen (by year, hour and
+month, filterable by year), and what they are worth (EV savings, forecast vs
+actual, forecast accuracy).
+
+[PDF version](reports/dashboard.pdf) · [Power BI file](reports/cheap_power_hours.pbix)
+
 
 ## The question
 1. What: (a) How much does charging an EV in the cheapest hours save compared
@@ -63,6 +74,8 @@ pytest                                    # 5 checks on the database
 python src/export_reports.py              # CSV files for Power BI in data/reports/
 ```
 Then open the notebooks in `notebooks/` in order.
+For the dashboard, open
+`reports/cheap_power_hours.pbix` in Power BI Desktop and click Refresh.
 
 ## Project structure
 | Folder | Contents |
@@ -70,7 +83,8 @@ Then open the notebooks in `notebooks/` in order.
 | `src/` | Scripts: downloads, database build, report export |
 | `sql/` | SQL for cleaning, features and EV savings (run by `build_db.py`) |
 | `tests/` | Automatic checks on the database (`pytest`) |
-| `notebooks/` | 01 first look, 02 when prices go negative, 03 SQL checks, 04 EV savings, 05 forecast and error analysis |
+| `notebooks/` | 01 first look, 02 when prices go negative, 03 SQL checks, 04 EV savings, 05 forecast and error analysis
+| `reports/` | Power BI dashboard (`.pbix`) and its PDF export |
 | `data/` | Downloaded data, database and report files (not in Git, rebuilt by the scripts) |
 
 ## Data
@@ -95,5 +109,5 @@ Then open the notebooks in `notebooks/` in order.
 - Add features that describe change, e.g. "wind today minus wind yesterday".
 
 ## Status
-Data pipeline, analysis, savings, forecast model, error analysis and tests
-done. In progress: Power BI dashboard and short report.
+Complete: data pipeline, analysis, EV savings, forecast model, error analysis,
+tests and Power BI dashboard.
